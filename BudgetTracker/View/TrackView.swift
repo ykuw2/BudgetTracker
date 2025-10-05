@@ -34,6 +34,7 @@ struct TrackView: View {
                 }
             }
             .padding(.horizontal)
+            .padding(.bottom, 10)
             
             Divider()
             

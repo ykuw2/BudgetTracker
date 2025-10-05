@@ -9,10 +9,11 @@ import SwiftUI
 
 struct MeView: View {
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Text("Me")
                 .font(.title)
                 .bold()
+                .padding(.bottom, 10)
             
             Divider()
             
