@@ -15,8 +15,8 @@ struct IntroView: View {
                 .foregroundColor(.white)
                 .padding(.vertical)
             
-            Text("Welcome back!")
-                .foregroundColor(.white)   
+            Text("Ready to track your spendings?")
+                .foregroundColor(.white)
                 .font(.system(.title2, design: .rounded))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity) // make it fill screen

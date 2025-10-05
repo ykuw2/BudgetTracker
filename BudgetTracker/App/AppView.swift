@@ -20,7 +20,7 @@ struct AppView: View {
                     withAnimation(.easeInOut(duration: 1.5)) {
                         opacity = 1.0
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             showIntro = false
                         }
@@ -31,4 +31,8 @@ struct AppView: View {
             ContentView()
         }
     }
+}
+
+#Preview {
+    AppView()
 }
