@@ -27,7 +27,7 @@ struct ContentView: View {
                     Text("Track")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selection == 0 ? Color.mint: Color.gray.opacity(0.3)) // Ternary operator if x ? (then) : else
+                        .background(selection == 0 ? Color.mint: Color.gray.opacity(0.2)) // Ternary operator if x ? (then) : else
                         .foregroundColor(selection == 0 ? .white : .primary)
                 }
                 Button(action: {
@@ -36,11 +36,11 @@ struct ContentView: View {
                     Text("Me")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(selection == 1 ? Color.mint : Color.gray.opacity(0.3)) // background color
+                        .background(selection == 1 ? Color.mint : Color.gray.opacity(0.2)) // background color
                         .foregroundColor(selection == 1 ? .white : .primary) // text color
                 }
             }
-            .frame(height: 60)
+            .frame(height: 80)
         }
         .ignoresSafeArea(edges: .bottom)
     }

@@ -9,6 +9,18 @@ import SwiftUI
 
 struct MeView: View {
     var body: some View {
-        Text("Me")
+        VStack {
+            Text("Me")
+                .font(.title)
+                .bold()
+            
+            Divider()
+            
+            Spacer()
+        }
     }
+}
+
+#Preview {
+    MeView()
 }
