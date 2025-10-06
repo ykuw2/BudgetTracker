@@ -47,19 +47,6 @@ struct TrackView: View {
     }
 }
 
-// Put it into its own file later
-struct InputFormView: View {
-    @Environment(\.dismiss) var dismiss // Environment value that tells to close current view (across SwiftUI)
-    var body: some View {
-        Button(action: {
-            dismiss()
-        })
-        {
-            Text("Cancel")
-        }
-    }
-}
-
 #Preview {
     TrackView()
 }
