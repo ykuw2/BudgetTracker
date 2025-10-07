@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TrackView: View {
     @State private var showForm: Bool = false
+    @ObservedObject var budget = GlobalBudget()
     
     var body: some View {
         VStack(spacing: 0){
@@ -39,6 +40,8 @@ struct TrackView: View {
             Divider()
             
             Spacer()
+            
+            Text("Amount: $\(budget.globalBudget, specifier: "%.2f")")
         }
         .sheet(isPresented: $showForm) {
             InputFormView()
