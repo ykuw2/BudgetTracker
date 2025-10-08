@@ -41,10 +41,14 @@ struct TrackView: View {
             
             Spacer()
             
-            Text("Amount: $\(budget.globalBudget, specifier: "%.2f")")
+            Text("Budget Available: $\(budget.globalBudget, specifier: "%.2f")")
+            Text("Total Rent Amount: $\(budget.totalRentAmount, specifier: "%.2f")")
+            Text("Total Investment Amount: $\(budget.totalInvestmentAmount, specifier: "%.2f")")
+            Text("Total Savings Amount: $\(budget.totalSavingsAmount, specifier: "%.2f")")
+            
         }
         .sheet(isPresented: $showForm) {
-            InputFormView()
+            InputFormView(budget: budget)
         }
         
     }
