@@ -39,17 +39,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CD1B46D3-9C4A-442F-BF3A-4A108B443325"
+            uuid = "C425B2E3-EFCD-41F4-BDAA-734852F000CC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BudgetTracker/View/InputFormView.swift"
+            filePath = "BudgetTracker/Model/TransactionTypes.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "InputFormView"
-            landmarkType = "14">
+            startingLineNumber = "7"
+            endingLineNumber = "7"
+            landmarkName = "TransactionType"
+            landmarkType = "13">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

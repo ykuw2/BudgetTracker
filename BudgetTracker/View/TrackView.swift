@@ -39,39 +39,34 @@ struct TrackView: View {
             
             Divider()
             
-            // The budget available button
+            // The budget available view
             GeometryReader {geo in
-                HStack {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.gray)
-                            .opacity(0.1)
-                            .frame(
-                                width: geo.size.width * 0.45,
-                                height: geo.size.height * 0.2
-                                )
-                        
-                        VStack {
-                            Text("Budget Available")
-                                .bold()
-                                .padding(.bottom)
-                            
-                            Text("$\(budget.globalBudget, specifier: "%.2f")")
-                                .font(.title)
-                                .bold()
-                        }
-                    }
+                ZStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.gray)
+                        .opacity(0.1)
+                        .frame(
+                            width: geo.size.width * 0.9,
+                            height: geo.size.height * 0.15
+                            )
                     
-                    Spacer()
+                    VStack {
+                        Text("Budget Available")
+                            .bold()
+                            .padding(.bottom)
+                        
+                        Text("$\(budget.globalBudget, specifier: "%.2f")")
+                            .font(.title)
+                            .bold()
+                    }
                 }
+                .frame(maxWidth: .infinity, alignment: .center)
                 .padding()
+                
+                Spacer()
             }
             
             Spacer()
-        
-            Text("Total Rent Amount: $\(budget.totalRentAmount, specifier: "%.2f")")
-            Text("Total Investment Amount: $\(budget.totalInvestmentAmount, specifier: "%.2f")")
-            Text("Total Savings Amount: $\(budget.totalSavingsAmount, specifier: "%.2f")")
             
         }
         .sheet(isPresented: $showForm) {
