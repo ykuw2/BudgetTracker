@@ -25,6 +25,7 @@ struct InputFormView: View {
     
     @State private var transactionDescription: String = ""
     @State private var spendingAmount: String = ""
+    @State private var category: TransactionType? = nil
     
     var totalPaycheckAmount: Double {
         paycheckAmountList.reduce(0, +)
@@ -83,17 +84,43 @@ struct InputFormView: View {
                 .padding([.horizontal, .top])
                 
                 // Adding Description
-                TextField("Type your description...", text: $transactionDescription)
+                TextField("Enter your description (Ex: Coffee)", text: $transactionDescription)
                     .keyboardType(.default)
                     .textFieldStyle(.roundedBorder)
                     .padding([.horizontal, .bottom])
-                //  .onSubmit {
-                //      if transactionDescription.isEmpty ...
-                // }
+
                 
                 // Adding Amount
-                TextField("Add Amount", text: $spendingAmount)
+                HStack {
+                    Text("Add Amount")
+                        .font(.title2)
+                        .bold()
+                    Spacer()
+                }
+                .padding([.horizontal, .top])
+                
+                TextField("Enter your amount (Ex: $12.91)", text: $spendingAmount)
+                    .keyboardType(.decimalPad)
+                    .textFieldStyle(.roundedBorder)
+                    .padding([.horizontal, .bottom])
+                
+                // Category
+                HStack {
+                    Text("Pick your category")
+                        .font(.title2)
+                        .bold()
+                    Spacer()
+                }
+                .padding([.horizontal, .top])
+                
+                Picker("Select Category", selection: $category) {
+                    ForEach(TransactionType.allCases, id: \.self) { type in
+                        Text(type.rawValue)
+                    }
+                }
+                .pickerStyle(.menu)
             }
+        
         }
     }
 }

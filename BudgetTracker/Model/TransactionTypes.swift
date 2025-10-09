@@ -5,6 +5,15 @@
 //  Created by Yuki Kuwahara on 10/8/25.
 //
 
-enum TransactionType: String {
-    case paycheck, rent, investment, savings, groceries, dining, drinks, transportation, shopping, other, venmo, zelle
+enum TransactionType: String, CaseIterable {
+    case paycheck = "Paycheck"
+    case rent = "Rent"
+    case investment = "Investment"
+    case saving = "Saving"
+    case shopping = "Shopping"
+    case foodAndDrinks = "Food and Drinks"
+    case transportation = "Transportation"
+    case services = "Services"
+    case entertainment = "Entertainment"
+    case transfers = "Transfers"
 }
