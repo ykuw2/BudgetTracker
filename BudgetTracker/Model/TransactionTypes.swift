@@ -17,3 +17,8 @@ enum TransactionType: String, CaseIterable {
     case entertainment = "Entertainment"
     case transfers = "Transfers"
 }
+
+enum TransactionAction: String, CaseIterable {
+    case spend = "Spend"
+    case receive = "Receive"
+}
