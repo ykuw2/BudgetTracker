@@ -5,6 +5,18 @@
 //  Created by Yuki Kuwahara on 10/8/25.
 //
 
+import Foundation
+import SwiftUI
+
+struct Transaction: Identifiable {
+    let id = UUID()
+    var description: String = ""
+    var amount: Double
+    var action: TransactionAction
+    var category: TransactionType
+    var date: Date = Date()
+}
+
 enum TransactionType: String, CaseIterable {
     case paycheck = "Paycheck"
     case rent = "Rent"

@@ -11,56 +11,22 @@ struct InputFormView: View {
     @Environment(\.dismiss) var dismiss // Environment value that tells to close current view (across SwiftUI)
     @ObservedObject var budget = GlobalBudget()
     
-    // Clean up later
-    @State private var paycheckAmountList: [Double] = []
-    @State private var paycheckAmount: Double = 0.0
-    
-    @State private var rentAmountList: [Double] = []
-    @State private var rentAmount: Double = 0.0
-    
-    @State private var investmentAmountList: [Double] = []
-    @State private var investmentAmount: Double = 0.0
-    
-    @State private var savingsAmountList: [Double] = []
-    @State private var savingsAmount: Double = 0.0
-    
-    @State private var shoppingAmountList: [Double] = []
-    @State private var shoppingAmount: Double = 0.0
-    
-    @State private var foodAndDrinksList: [Double] = []
-    @State private var foodAndDrinksAmount: Double = 0.0
-
-    @State private var transportationAmountList: [Double] = []
-    @State private var transportationAmount: Double = 0.0
-    
-    @State private var servicesAmountList: [Double] = []
-    @State private var servicesAmount: Double = 0.0
-    
-    @State private var entertainmentAmountList: [Double] = []
-    @State private var entertainmentAmount: Double = 0.0
-    
-    @State private var transfersAmountList: [Double] = []
-    @State private var transfersAmount: Double = 0.0
-    
+    @State private var transactionDate: Date = Date()
     @State private var transactionDescription: String = ""
     @State private var spendingAmountString: String = "" // We want this to be string so if user enters nothing by accident we can set to 0 and will not break
     @State private var transactionAction: TransactionAction = .spend
-    @State private var category: TransactionType = .shopping
+    @State private var transactionCategory: TransactionType = .shopping
     
-    // Change this later
     var totalBudget: Double {
-        paycheckAmountList.reduce(0, +) +
-        rentAmountList.reduce(0, +) +
-        investmentAmountList.reduce(0, +) +
-        savingsAmountList.reduce(0, +) +
-        shoppingAmountList.reduce(0, +) +
-        foodAndDrinksList.reduce(0, +) +
-        transportationAmountList.reduce(0, +) +
-        servicesAmountList.reduce(0, +) +
-        entertainmentAmountList.reduce(0, +) +
-        transfersAmountList.reduce(0, +)
+        budget.transactions.reduce(0) { total, txn in // running total (total) and current transaction (txn)
+            switch txn.action {
+            case .receive:
+                return total + txn.amount
+            case .spend:
+                return total - txn.amount
+            }
+        }
     }
-
     
     var body: some View {
         // "Add Transaction" Text on Top
@@ -79,6 +45,22 @@ struct InputFormView: View {
                 .bold()
             Spacer()
             Button(action: {
+                if let value = Double(spendingAmountString) {
+                    let newTransaction = Transaction(
+                        description: transactionDescription,
+                        amount: value,
+                        action: transactionAction,
+                        category: transactionCategory,
+                        date: transactionDate
+                    )
+                    budget.transactions.append(newTransaction)
+                    transactionDate = Date()
+                    spendingAmountString = ""
+                    transactionDescription = ""
+                    transactionAction = .spend
+                    transactionCategory = .shopping
+                }
+                
                 budget.globalBudget = totalBudget
                 
                 dismiss()
@@ -92,8 +74,23 @@ struct InputFormView: View {
         
         Divider()
         
-        // The content to add values
+        // The transaction date
         VStack {
+            HStack{
+                Text("Enter Date")
+                    .font(.title2)
+                    .bold()
+                Spacer()
+            }
+        
+            .padding([.horizontal, .top])
+            
+            // Adding Date
+            DatePicker("Select Date", selection: $transactionDate, displayedComponents: .date)
+                .datePickerStyle(.compact)
+                .padding([.horizontal, .bottom])
+        
+        // The content to add values
             HStack{
                 Text("Enter Description")
                     .font(.title2)
@@ -149,7 +146,7 @@ struct InputFormView: View {
             }
             .padding([.horizontal, .top])
             
-            Picker("Select Category", selection: $category) {
+            Picker("Select Category", selection: $transactionCategory) {
                 ForEach(TransactionType.allCases, id: \.self) { type in
                     Text(type.rawValue)
                 }
