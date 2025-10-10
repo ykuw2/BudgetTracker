@@ -71,8 +71,7 @@ struct TrackView: View {
         }
         .sheet(isPresented: $showForm) {
             InputFormView(budget: budget)
-                .presentationDetents([.fraction(0.85), .large]) // Adjusts the sheet size
-                .background(Color.white)
+                .presentationDetents([.fraction(0.9), .large]) // Adjusts the sheet size
         }
         
     }
