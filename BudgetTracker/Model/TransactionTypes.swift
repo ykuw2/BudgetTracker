@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Transaction: Identifiable {
+struct Transaction: Identifiable, Equatable {
     let id = UUID()
     var description: String = ""
     var amount: Double

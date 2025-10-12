@@ -21,7 +21,6 @@ struct TrackView: View {
                         .font(.system(size: 20))
                 }
                 
-                
                 Spacer()
                 Text("Tracking")
                     .font(.title)
@@ -40,38 +39,81 @@ struct TrackView: View {
             Divider()
             
             // The budget available view
-            GeometryReader {geo in
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.gray)
-                        .opacity(0.1)
-                        .frame(
-                            width: geo.size.width * 0.9,
-                            height: geo.size.height * 0.15
-                            )
+            ZStack {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.gray)
+                    .opacity(0.1)
+                    .frame(height: 120)
+                
+                VStack {
+                    Text("Budget Available")
+                        .bold()
+                        .padding(.bottom, 5)
                     
-                    VStack {
-                        Text("Budget Available")
-                            .bold()
-                            .padding(.bottom)
-                        
-                        Text("$\(budget.globalBudget, specifier: "%.2f")")
-                            .font(.title)
-                            .bold()
-                    }
+                    Text("$\(budget.totalBudget, specifier: "%.2f")")
+                        .font(.title)
+                        .bold()
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding()
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            
+            HStack {
+                Text("Transactions")
+                    .font(.title2)
+                    .bold()
                 
                 Spacer()
             }
+            .padding([.bottom, .horizontal])
             
-            Spacer()
-            
-        }
-        .sheet(isPresented: $showForm) {
-            InputFormView(budget: budget)
-                .presentationDetents([.fraction(0.9), .large]) // Adjusts the sheet size
+
+            List {
+                ForEach(budget.transactions.sorted(by: { $0.date > $1.date })) { transaction in
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(transaction.description)
+                                .bold()
+                            
+                            Spacer()
+                            
+                            let actionString = transaction.action == .spend ? "-" : "+"
+                            Text("\(actionString)$\(transaction.amount, specifier: "%.2f")")
+                        }
+                        
+                        HStack {
+                            Text(transaction.date.formatted(.dateTime.month(.twoDigits).day(.twoDigits).year(.twoDigits)))
+                            Spacer()
+                        }
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                    }
+                    .padding(.vertical, 5)
+                }
+                .onDelete { offsets in
+                    let sortedTransactions = budget.transactions.sorted(by: { $0.date > $1.date }) // Closures - read this carefully!
+                    let itemsToDelete = offsets.map { sortedTransactions[$0] }
+                    budget.transactions.removeAll { itemsToDelete.contains($0) }
+                }
+            }
+            .listStyle(.plain)
+            .sheet(isPresented: $showForm) {
+                InputFormView(budget: budget)
+                    .presentationDetents([.large])
+                    .presentationDragIndicator(.hidden) // Adjusts the sheet size
+                
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button("Done") {
+                                UIApplication.shared.sendAction(
+                                    #selector(UIResponder.resignFirstResponder),
+                                    to: nil, from: nil, for: nil
+                                )
+                            }
+                        }
+                    }
+            }
         }
         
     }

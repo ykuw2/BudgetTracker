@@ -24,7 +24,7 @@ struct ContentView: View {
                 Button(action: {
                     selection = 0
                 }) {
-                    Text("Track")
+                    Text("Tracking")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(selection == 0 ? Color.mint: Color.gray.opacity(0.2)) // Ternary operator if x ? (then) : else

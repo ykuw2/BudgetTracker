@@ -17,17 +17,6 @@ struct InputFormView: View {
     @State private var transactionAction: TransactionAction = .spend
     @State private var transactionCategory: TransactionType = .shopping
     
-    var totalBudget: Double {
-        budget.transactions.reduce(0) { total, txn in // running total (total) and current transaction (txn)
-            switch txn.action {
-            case .receive:
-                return total + txn.amount
-            case .spend:
-                return total - txn.amount
-            }
-        }
-    }
-    
     var body: some View {
         // "Add Transaction" Text on Top
         HStack{
@@ -60,9 +49,6 @@ struct InputFormView: View {
                     transactionAction = .spend
                     transactionCategory = .shopping
                 }
-                
-                budget.globalBudget = totalBudget
-                
                 dismiss()
             }) {
                 Text("Done")
@@ -152,7 +138,7 @@ struct InputFormView: View {
                 }
             }
             .pickerStyle(.wheel)
-            .frame(height: 100)
+            .frame(height: 200)
             .padding(.horizontal)
             .clipped()
             }
