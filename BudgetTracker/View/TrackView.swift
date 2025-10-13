@@ -67,36 +67,46 @@ struct TrackView: View {
             }
             .padding([.bottom, .horizontal])
             
-
-            List {
-                ForEach(budget.transactions.sorted(by: { $0.date > $1.date })) { transaction in
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(transaction.description)
-                                .bold()
+            if budget.transactions.isEmpty {
+                VStack {
+                    Text("Let's add your first transaction! 💸")
+                        .bold()
+                        .padding(.top)
+                    
+                    Spacer()
+                }
+            } else {
+                List {
+                    ForEach(budget.transactions.sorted(by: { $0.date > $1.date })) { transaction in
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text(transaction.description)
+                                    .bold()
+                                
+                                Spacer()
+                                
+                                let actionString = transaction.action == .spend ? "-" : "+"
+                                Text("\(actionString)$\(transaction.amount, specifier: "%.2f")")
+                            }
                             
-                            Spacer()
-                            
-                            let actionString = transaction.action == .spend ? "-" : "+"
-                            Text("\(actionString)$\(transaction.amount, specifier: "%.2f")")
+                            HStack {
+                                Text(transaction.date.formatted(.dateTime.month(.twoDigits).day(.twoDigits).year(.twoDigits)))
+                                Spacer()
+                            }
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
                         }
-                        
-                        HStack {
-                            Text(transaction.date.formatted(.dateTime.month(.twoDigits).day(.twoDigits).year(.twoDigits)))
-                            Spacer()
-                        }
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
+                        .padding(.vertical, 5)
                     }
-                    .padding(.vertical, 5)
+                    .onDelete { offsets in
+                        let sortedTransactions = budget.transactions.sorted(by: { $0.date > $1.date }) // Closures - read this carefully!
+                        let itemsToDelete = offsets.map { sortedTransactions[$0] }
+                        budget.transactions.removeAll { itemsToDelete.contains($0) }
+                    }
                 }
-                .onDelete { offsets in
-                    let sortedTransactions = budget.transactions.sorted(by: { $0.date > $1.date }) // Closures - read this carefully!
-                    let itemsToDelete = offsets.map { sortedTransactions[$0] }
-                    budget.transactions.removeAll { itemsToDelete.contains($0) }
-                }
+                .listStyle(.plain)
             }
-            .listStyle(.plain)
+        }
             .sheet(isPresented: $showForm) {
                 InputFormView(budget: budget)
                     .presentationDetents([.large])
@@ -114,7 +124,6 @@ struct TrackView: View {
                         }
                     }
             }
-        }
         
     }
 }
