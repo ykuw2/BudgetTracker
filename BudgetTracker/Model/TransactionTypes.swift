@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct Transaction: Identifiable, Equatable {
-    let id = UUID()
+struct Transaction: Identifiable, Codable, Equatable {
+    var id: UUID = UUID()
     var description: String = ""
     var amount: Double
     var action: TransactionAction
@@ -17,7 +17,7 @@ struct Transaction: Identifiable, Equatable {
     var date: Date = Date()
 }
 
-enum TransactionType: String, CaseIterable {
+enum TransactionType: String, Codable, CaseIterable {
     case paycheck = "Paycheck"
     case rent = "Rent"
     case investment = "Investment"
@@ -30,7 +30,7 @@ enum TransactionType: String, CaseIterable {
     case transfers = "Transfers"
 }
 
-enum TransactionAction: String, CaseIterable {
+enum TransactionAction: String, Codable, CaseIterable {
     case spend = "Spend"
     case receive = "Receive"
 }
