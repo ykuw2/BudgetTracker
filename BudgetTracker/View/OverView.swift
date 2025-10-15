@@ -1,5 +1,5 @@
 //
-//  MeView.swift
+//  OverView.swift
 //  BudgetTracker
 //
 //  Created by Yuki Kuwahara on 10/4/25.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct MeView: View {
+struct OverView: View {
     var body: some View {
         VStack(spacing: 0) {
-            Text("Me")
+            Text("Overview")
                 .font(.title)
                 .bold()
                 .padding(.bottom, 10)
@@ -23,5 +23,5 @@ struct MeView: View {
 }
 
 #Preview {
-    MeView()
+    OverView()
 }

@@ -15,7 +15,7 @@ struct ContentView: View {
             if selection == 0 {
                 TrackView()
             } else {
-                MeView()
+                OverView()
             }
             
             Spacer()
@@ -33,7 +33,7 @@ struct ContentView: View {
                 Button(action: {
                     selection = 1
                 }) {
-                    Text("Me")
+                    Text("Overview")
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(selection == 1 ? Color.mint : Color.gray.opacity(0.2)) // background color
