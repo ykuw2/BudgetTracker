@@ -61,6 +61,11 @@ class GlobalBudget: ObservableObject {
     
     // Function that actually writes this to a CSV
     func exportCSVFile() -> URL? { // URL is like a link or an address to a site or a file (path)
+        guard !transactions.isEmpty else {
+            print("You do not have any transactions to export.")
+            return nil
+        }
+        
         let csvData = transactionsToCSV()
         
         let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent("budgetTransactions.csv") // Adding to iOS file system and then adding it into short term file directory with the filename
@@ -73,8 +78,6 @@ class GlobalBudget: ObservableObject {
             return nil // returns nil since "URL?" -> file was not able to be created
         }
     }
-    
-    // TODO: Actually incorporate the logic that can export the CSV file in the TrackView's export Button!
     
     // Saving the data in UserDefaults
     private func saveData() { // UserDefaults is for small storage and in dictionary format
