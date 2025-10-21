@@ -6,8 +6,28 @@
 //
 
 import SwiftUI
+import Charts
+
+struct BarView: View {
+    var spending: [(category: TransactionType, amount: Double)]
+    
+    var body: some View {
+            Chart(spending, id: \.category) { item in
+                BarMark(
+                    x: .value("Category", item.category.rawValue.capitalized),
+                    y: .value("Amount", item.amount)
+                )
+                .foregroundStyle(.blue)
+            }
+            .frame(height: 200)
+            .padding()
+            
+        }
+    }
 
 struct OverView: View {
+    @ObservedObject var budget = GlobalBudget()
+    
     var body: some View {
         VStack(spacing: 0) {
             Text("Overview")
@@ -18,10 +38,13 @@ struct OverView: View {
             Divider()
             
             Spacer()
+            
+            BarView(spending: budget.spendingByCategory)
+            
+            Spacer()
         }
     }
 }
-
 #Preview {
     OverView()
 }

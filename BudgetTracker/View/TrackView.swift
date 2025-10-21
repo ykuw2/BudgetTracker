@@ -106,6 +106,17 @@ struct TrackView: View {
                             }
                             .font(.subheadline)
                             .foregroundColor(.gray)
+                            
+                            HStack {
+                                Text(transaction.category.rawValue)
+                                    .font(.caption)
+                                    .padding(5)
+                                    .background(.gray.opacity(0.2))
+                                    .cornerRadius(6)
+                                    .foregroundColor(.blue)
+                                Spacer()
+                            }
+                            .font(.subheadline)
                         }
                         .padding(.vertical, 5)
                     }

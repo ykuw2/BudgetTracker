@@ -33,6 +33,15 @@ class GlobalBudget: ObservableObject {
         }
     }
     
+    // Calculating the amount in each category
+    var spendingByCategory: [(category: TransactionType, amount: Double)] {
+        var dict: [TransactionType: Double] = [:]
+        for transaction in transactions where transaction.action == .spend {
+            dict[transaction.category, default: 0] += transaction.amount
+        }
+        return dict.map{($0.key, $0.value)}
+    }
+    
     // Keys of where to store the data
     private let globalBudgetKey = "SavedGlobalBudget"
     private let transactionKey = "SavedTransactions"
