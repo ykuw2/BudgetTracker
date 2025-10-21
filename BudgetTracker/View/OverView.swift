@@ -42,9 +42,24 @@ struct OverView: View {
             BarView(spending: budget.spendingByCategory)
             
             Spacer()
+            
+            Text("Breakdown")
+                .bold()
+            
+            List {
+                ForEach(budget.spendingByCategory, id: \.category.rawValue) { item in
+                    HStack{
+                        Text(item.category.rawValue)
+                        Spacer()
+                        Text("$\(item.amount, specifier: "%.2f")")
+                    }
+                }
+            }
+            .listStyle(.plain)
         }
     }
 }
+
 #Preview {
     OverView()
 }
