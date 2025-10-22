@@ -39,23 +39,32 @@ struct OverView: View {
             
             Spacer()
             
-            BarView(spending: budget.spendingByCategory)
-            
-            Spacer()
-            
-            Text("Breakdown")
-                .bold()
-            
-            List {
-                ForEach(budget.spendingByCategory, id: \.category.rawValue) { item in
-                    HStack{
-                        Text(item.category.rawValue)
-                        Spacer()
-                        Text("$\(item.amount, specifier: "%.2f")")
+            if budget.spendingByCategory.isEmpty {
+                Text("Add spendings to see the breakdown! 💸")
+                    .bold()
+                    .padding()
+                
+                Spacer()
+            } else {
+                
+                BarView(spending: budget.spendingByCategory)
+                
+                Spacer()
+                
+                Text("Breakdown")
+                    .bold()
+                
+                List {
+                    ForEach(budget.spendingByCategory, id: \.category.rawValue) { item in
+                        HStack{
+                            Text(item.category.rawValue)
+                            Spacer()
+                            Text("$\(item.amount, specifier: "%.2f")")
+                        }
                     }
                 }
+                .listStyle(.plain)
             }
-            .listStyle(.plain)
         }
     }
 }
