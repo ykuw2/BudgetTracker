@@ -11,21 +11,19 @@ struct ContentView: View {
     @State private var selection = 0
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             if selection == 0 {
                 TrackView()
             } else {
                 OverView()
             }
-            
-            Spacer()
-            
+
             HStack(spacing: 0) {
                 Button(action: {
                     selection = 0
                 }) {
                     Text("Tracking")
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity,  maxHeight: .infinity)
                         .padding()
                         .background(selection == 0 ? Color.mint: Color.gray.opacity(0.2)) // Ternary operator if x ? (then) : else
                         .foregroundColor(selection == 0 ? .white : .primary)
@@ -34,7 +32,7 @@ struct ContentView: View {
                     selection = 1
                 }) {
                     Text("Overview")
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity,  maxHeight: .infinity)
                         .padding()
                         .background(selection == 1 ? Color.mint : Color.gray.opacity(0.2)) // background color
                         .foregroundColor(selection == 1 ? .white : .primary) // text color
