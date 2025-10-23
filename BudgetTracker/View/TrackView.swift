@@ -11,32 +11,54 @@ import UIKit
 struct TrackView: View {
     @State private var showForm: Bool = false
     @ObservedObject var budget = GlobalBudget()
-    @State private var showNoTransactionAlert = false
+    @State private var showNoTransactionAlert: Bool = false
+    @State private var showNoTransactionToDeleteAlert: Bool = false
     @State private var exportURL: ShareableURL?
+    @State private var showClearAlert: Bool = false
     
     var body: some View {
-        VStack(spacing: 0){
+        VStack(spacing: 0) {
             HStack {
-                Button(action: {
-                    if let url = budget.exportCSVFile() {
-                        exportURL = ShareableURL(url: url)
-                    } else {
-                        showNoTransactionAlert = true
+                Menu {
+                    Button(action: {
+                        if let url = budget.exportCSVFile() {
+                            exportURL = ShareableURL(url: url)
+                        } else {
+                            showNoTransactionAlert = true
+                        }
+                    }) {
+                        HStack {
+                            Image(systemName: "square.and.arrow.up")
+                            Text("Export Transactions")
+                        }
                     }
-                }) {
-                    Image(systemName: "square.and.arrow.up")
+
+                    Button(action: {
+                        if budget.transactions.isEmpty {
+                            showNoTransactionToDeleteAlert = true
+                        } else {
+                            showClearAlert = true
+                        }
+                    }) {
+                        HStack {
+                            Image(systemName: "trash")
+                            Text("Clear Transactions")
+                        }
+                    }
+
+                }
+                label: {
+                    Image(systemName: "gearshape")
                         .font(.system(size: 20))
                 }
-                .alert("No transactions to export!", isPresented: $showNoTransactionAlert) {
-                    Button("Ok", role: .cancel) {
-                    }
-                }
                 
+
                 Spacer()
                 Text("Tracking")
                     .font(.title)
                     .bold()
                 Spacer()
+
                 Button(action: {
                     showForm = true
                 }) {
@@ -46,6 +68,18 @@ struct TrackView: View {
             }
             .padding(.horizontal)
             .padding(.bottom, 10)
+            .alert("No transactions to export!", isPresented: $showNoTransactionAlert) {
+                Button("Ok", role: .cancel) { }
+            }
+            .alert("No transactions to delete!", isPresented: $showNoTransactionToDeleteAlert) {
+                Button("Ok", role: .cancel) { }
+            }
+            .alert("Are you sure you want to clear all transactions?", isPresented: $showClearAlert) {
+                Button("Cancel", role: .cancel) { }
+                Button("Delete All", role: .destructive) {
+                    budget.transactions.removeAll()
+                }
+            }
             
             Divider()
             
