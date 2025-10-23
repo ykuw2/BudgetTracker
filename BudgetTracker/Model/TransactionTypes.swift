@@ -28,6 +28,21 @@ enum TransactionType: String, Codable, CaseIterable {
     case services = "Services"
     case entertainment = "Entertainment"
     case transfers = "Transfers"
+    
+    var color: Color {
+        switch self {
+        case .paycheck: return .green
+        case .rent: return .red
+        case .investment: return .blue
+        case .saving: return .purple
+        case .shopping: return .pink
+        case .foodAndDrinks: return .orange
+        case .transportation: return .yellow
+        case .services: return .brown
+        case .entertainment: return .indigo
+        case .transfers: return .mint
+        }
+    }
 }
 
 enum TransactionAction: String, Codable, CaseIterable {

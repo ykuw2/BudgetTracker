@@ -6,24 +6,22 @@
 //
 
 import SwiftUI
+import UIKit
 import Charts
 
-struct BarView: View {
+struct PieChartView: View {
     var spending: [(category: TransactionType, amount: Double)]
     
     var body: some View {
-            Chart(spending, id: \.category) { item in
-                BarMark(
-                    x: .value("Category", item.category.rawValue.capitalized),
-                    y: .value("Amount", item.amount)
-                )
-                .foregroundStyle(.blue)
-            }
-            .frame(height: 200)
-            .padding()
-            
+        Chart(spending, id: \.category.rawValue) { item in
+            SectorMark(
+                angle: .value("Amount", item.amount),
+            )
+            .foregroundStyle(item.category.color)
         }
+        .padding()
     }
+}
 
 struct OverView: View {
     @ObservedObject var budget = GlobalBudget()
@@ -47,7 +45,7 @@ struct OverView: View {
                 Spacer()
             } else {
                 
-                BarView(spending: budget.spendingByCategory)
+                PieChartView(spending: budget.spendingByCategory)
                 
                 Spacer()
                 
@@ -57,6 +55,9 @@ struct OverView: View {
                 List {
                     ForEach(budget.spendingByCategory, id: \.category.rawValue) { item in
                         HStack{
+                            Circle()
+                                .fill(item.category.color)
+                                .frame(width: 15)
                             Text(item.category.rawValue)
                             Spacer()
                             Text("$\(item.amount, specifier: "%.2f")")
@@ -68,6 +69,7 @@ struct OverView: View {
         }
     }
 }
+    
 
 #Preview {
     OverView()
