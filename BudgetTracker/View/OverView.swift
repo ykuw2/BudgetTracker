@@ -54,11 +54,13 @@ struct OverView: View {
                 
                 List {
                     ForEach(budget.spendingByCategory, id: \.category.rawValue) { item in
+                        let ratio: Double = budget.categorySpendingRatios[item.category] ?? 0.0
+                        
                         HStack{
                             Circle()
                                 .fill(item.category.color)
                                 .frame(width: 15)
-                            Text(item.category.rawValue)
+                            Text("\(item.category.rawValue) (\(ratio * 100, specifier: "%.1f")%)")
                             Spacer()
                             Text("$\(item.amount, specifier: "%.2f")")
                         }

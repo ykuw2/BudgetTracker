@@ -43,13 +43,13 @@ class GlobalBudget: ObservableObject {
     }
     
     // Calculating the ratio of the spending for each category
-    var categorySpendingRatios: [(category: TransactionType, ratio: Double)] {
+    var categorySpendingRatios: [TransactionType : Double] {
         let totalSpending = transactions
             .filter { $0.action == .spend }
             .map { $0.amount }
             .reduce(0, +)
 
-        guard totalSpending > 0 else { return [] }
+        guard totalSpending > 0 else { return [:] }
 
         var dict: [TransactionType: Double] = [:]
         
@@ -57,7 +57,10 @@ class GlobalBudget: ObservableObject {
             dict[transaction.category, default: 0] += transaction.amount
         }
 
-        return dict.map { (category: $0.key, ratio: $0.value / totalSpending) }
+        for (category, amount) in dict {
+            dict[category] = amount / totalSpending
+        }
+        return dict
     }
     
     // Keys of where to store the data
