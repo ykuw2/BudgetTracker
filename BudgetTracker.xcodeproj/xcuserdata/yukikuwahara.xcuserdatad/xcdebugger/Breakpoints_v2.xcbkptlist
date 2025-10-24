@@ -82,6 +82,92 @@
             endingLineNumber = "27"
             landmarkName = "OverView"
             landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "F3565533-670C-44E2-8686-246A606AFB88 - 9dd40f08b4e9fc98"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of BudgetTracker.OverView.budget : BudgetTracker.GlobalBudget"
+                  moduleName = "BudgetTracker.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yukikuwahara/Desktop/BudgetTracker/BudgetTracker/View/OverView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "F3565533-670C-44E2-8686-246A606AFB88 - 7838a8f3c50a1519"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BudgetTracker.OverView.budget.getter : BudgetTracker.GlobalBudget"
+                  moduleName = "BudgetTracker.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yukikuwahara/Desktop/BudgetTracker/BudgetTracker/View/OverView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "F3565533-670C-44E2-8686-246A606AFB88 - f689343997e542c5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BudgetTracker.OverView.budget.setter : BudgetTracker.GlobalBudget"
+                  moduleName = "BudgetTracker.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yukikuwahara/Desktop/BudgetTracker/BudgetTracker/View/OverView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "F3565533-670C-44E2-8686-246A606AFB88 - 78af0709b8c31089"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BudgetTracker.OverView.budget.modify : BudgetTracker.GlobalBudget"
+                  moduleName = "BudgetTracker.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yukikuwahara/Desktop/BudgetTracker/BudgetTracker/View/OverView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27">
+               </Location>
+               <Location
+                  uuid = "F3565533-670C-44E2-8686-246A606AFB88 - a29ba76dcf00dc9a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BudgetTracker.OverView.$budget.getter : SwiftUI.ObservedObject&lt;BudgetTracker.GlobalBudget&gt;.Wrapper"
+                  moduleName = "BudgetTracker.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yukikuwahara/Desktop/BudgetTracker/BudgetTracker/View/OverView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "F3565533-670C-44E2-8686-246A606AFB88 - f56561fc7e97bf4a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 0 of BudgetTracker.OverView.init(budget: BudgetTracker.GlobalBudget) -&gt; BudgetTracker.OverView"
+                  moduleName = "BudgetTracker.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yukikuwahara/Desktop/BudgetTracker/BudgetTracker/View/OverView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

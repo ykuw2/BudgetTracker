@@ -39,7 +39,25 @@ class GlobalBudget: ObservableObject {
         for transaction in transactions where transaction.action == .spend {
             dict[transaction.category, default: 0] += transaction.amount
         }
-        return dict.map{($0.key, $0.value)}
+        return dict.map { ($0.key, $0.value) }
+    }
+    
+    // Calculating the ratio of the spending for each category
+    var categorySpendingRatios: [(category: TransactionType, ratio: Double)] {
+        let totalSpending = transactions
+            .filter { $0.action == .spend }
+            .map { $0.amount }
+            .reduce(0, +)
+
+        guard totalSpending > 0 else { return [] }
+
+        var dict: [TransactionType: Double] = [:]
+        
+        for transaction in transactions where transaction.action == .spend {
+            dict[transaction.category, default: 0] += transaction.amount
+        }
+
+        return dict.map { (category: $0.key, ratio: $0.value / totalSpending) }
     }
     
     // Keys of where to store the data
