@@ -71,7 +71,7 @@ If you have no transactions, it will say: "Add spendings to see the breakdown! ð
 ## Overall
 Overall, I learned so much more about iOS Development. I was able to use the knowledge I gained from building the BillSplitApp and write cleaner and better code. 
 I also learned that even though apps like this are quite simple, the development is pretty hard.
-I was also able to use more packages such as `UIKit` and `Charts`, which was eye-opening.
+I was also able to use more packages such as `Charts`, which was eye-opening.
 
 I think the next step is to: 1) Do more unit-test based development and 2) (Hopefully) More design elements (I am not a designer by nature but am working on it) 
 
