@@ -9,49 +9,42 @@ import SwiftUI
 import UIKit
 
 struct TrackView: View {
-    @State private var showForm: Bool = false
     @ObservedObject var budget = GlobalBudget()
+    @State private var showForm: Bool = false
     @State private var showNoTransactionAlert: Bool = false
     @State private var showNoTransactionToDeleteAlert: Bool = false
-    @State private var exportURL: ShareableURL?
     @State private var showClearAlert: Bool = false
+    @State private var showShare: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
             HStack {
                 Menu {
-                    Button(action: {
-                        if let url = budget.exportCSVFile() {
-                            exportURL = ShareableURL(url: url)
-                        } else {
-                            showNoTransactionAlert = true
+                    if let url = budget.exportCSVFile() {
+                        ShareLink(item: url) {
+                            Label("Export Transactions", systemImage: "square.and.arrow.up")
                         }
-                    }) {
-                        HStack {
-                            Image(systemName: "square.and.arrow.up")
-                            Text("Export Transactions")
+                    } else {
+                        Button {
+                            showNoTransactionAlert = true
+                        } label: {
+                            Label("Export Transactions", systemImage: "square.and.arrow.up")
                         }
                     }
 
-                    Button(action: {
+                    Button {
                         if budget.transactions.isEmpty {
                             showNoTransactionToDeleteAlert = true
                         } else {
                             showClearAlert = true
                         }
-                    }) {
-                        HStack {
-                            Image(systemName: "trash")
-                            Text("Clear Transactions")
-                        }
+                    } label: {
+                        Label("Clear Transactions", systemImage: "trash")
                     }
-
-                }
-                label: {
+                } label: {
                     Image(systemName: "gearshape")
                         .font(.system(size: 20))
                 }
-                
 
                 Spacer()
                 Text("Tracking")
@@ -180,29 +173,8 @@ struct TrackView: View {
                         }
                     }
             }
-            .sheet(item: $exportURL) { item in // exportURL needs to conform Identifiable
-                ShareSheet(items: [item.url]) // Sheet appears because non-nil state which in my first iteration was the flaw that wasn't implemented
-            }
         
     }
-}
-
-// Struct wrapper for share sheet
-struct ShareSheet: UIViewControllerRepresentable { // Standard iOS share sheet
-    let items: [Any] // The item to share
-    
-    func makeUIViewController(context: Context) -> some UIViewController {
-        let controller = UIActivityViewController(activityItems: items, applicationActivities: nil) // Standard iOS share sheet
-        return controller
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {} // SwiftUI's way to propogate state changes in UIKit
-}
-
-// URL Wrapper that has UUID so that it can track the unique ID
-struct ShareableURL: Identifiable {
-    let id = UUID() // UUID guarantees new sheet everytime leading to non-nil (new ID)
-    let url: URL
 }
 
 
